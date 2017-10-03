@@ -25,7 +25,7 @@ public class FuncionarioDao {
 	
 	public Integer create(Integer idDepartamento, Funcionario funcionario){
 		
-		String SQL = "INSERT INTO funcionario(id_departamento, nome, salario, matricula) VALUES(?, ?, ?)";
+		String SQL = "INSERT INTO funcionario(id_departamento, nome, salario, matricula) VALUES(?, ?, ?, ?)";
 		
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
@@ -52,7 +52,7 @@ public class FuncionarioDao {
 			
 		} catch (SQLException e) {
 			
-			JOptionPane.showMessageDialog(null, "Erro ao Cadastrar Funcionário!");
+			JOptionPane.showMessageDialog(null, "Erro ao Cadastrar Funcionário! " + e);
 			
 		}finally {
 			

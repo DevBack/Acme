@@ -38,7 +38,7 @@ public class DependenteDao {
 			
 		} catch (SQLException e) {
 			
-			System.err.println("Erro ao Cadastrar Dependente.");
+			System.err.println("Erro ao Cadastrar Dependente. " + e);
 			return false;
 			
 		}finally {

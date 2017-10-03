@@ -7,7 +7,9 @@ import br.com.dao.DependenteDao;
 import br.com.dao.EmailDao;
 import br.com.dao.FuncionarioDao;
 import br.com.dao.TelefoneDao;
+import br.com.model.Dependente;
 import br.com.model.Funcionario;
+import br.com.model.Telefone;
 
 /**
  * @author Elton Lima
@@ -26,14 +28,29 @@ public class FuncionarioService {
 		this.dependenteDao = new DependenteDao();
 		this.emailDao = new EmailDao();
 		this.telefoneDao = new TelefoneDao();
+
 	}
 	
-	public void save(Funcionario funcionario) {
+	public void save(Integer dpt, Funcionario funcionario) {
+	
+		Integer departamento = dpt;
 		
-		funcionarioDao.create(null, funcionario);
+	//INSERT de Funcionário
+		Integer key = funcionarioDao.create(departamento, funcionario);
+	
+	//INSERT de E-mail do Funcionário
+		emailDao.create(key, funcionario.getEmail());
 		
-		emailDao.create(funcionario.getId(), funcionario.getEmail());
+	//INSERT da Lista de Telefones do Funcionário	
+		for(Telefone telefone : funcionario.getTelefones()) {
+			telefoneDao.create(key, telefone);
+		}
 		
+	//INSERT da Lista de Dependentes do Funcionário	
+		for(Dependente dependente : funcionario.getDependentes()) {
+			dependenteDao.create(key, dependente);
+		}
+				
 	}
 	
 
