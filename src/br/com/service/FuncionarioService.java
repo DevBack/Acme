@@ -3,6 +3,8 @@
  */
 package br.com.service;
 
+import java.util.ArrayList;
+
 import br.com.dao.DependenteDao;
 import br.com.dao.EmailDao;
 import br.com.dao.FuncionarioDao;
@@ -49,9 +51,15 @@ public class FuncionarioService {
 	//INSERT da Lista de Dependentes do Funcionário	
 		for(Dependente dependente : funcionario.getDependentes()) {
 			dependenteDao.create(key, dependente);
-		}
-				
+		}		
 	}
 	
-
+	public void list() {
+		
+		List<Funcionario> funcionarios = new ArrayList<>();
+		Funcionario funcionario = new Funcionario();
+		
+		
+		
+	}
 }

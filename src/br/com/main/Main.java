@@ -40,41 +40,41 @@ public class Main {
 	public static void main(String args[]) throws SQLException {
 		
 		Funcionario funcionario = new Funcionario();
-		funcionario.setNome("Josenildo Gomes da Silva Lima");
-		funcionario.setMatricula("6940");
-		funcionario.setSalario(1500);
+		funcionario.setNome("Suhellen Gomes S Lima");
+		funcionario.setMatricula("8767");
+		funcionario.setSalario(2000);
 		
 		Email email = new Email();
-		email.setDescricao("josenildo@live.com");
+		email.setDescricao("suhellenlima@live.com");
 		
 		funcionario.setEmail(email);
 		
 		List<Telefone> telefones = new ArrayList<>();
 		Telefone telefone = new Telefone();
-		telefone.setDdd("83");
-		telefone.setNumero("9 8878-0098");
+		telefone.setDdd("81");
+		telefone.setNumero("9 9900-0098");
 		telefones.add(telefone);
 		
 		Telefone telefone2 = new Telefone();
-		telefone2.setDdd("83");
-		telefone2.setNumero("9 8777-2982");
+		telefone2.setDdd("81");
+		telefone2.setNumero("9 8887-0907");
 		telefones.add(telefone2);
 		
 		funcionario.setTelefones(telefones);
 		
 		List<Dependente> dependentes = new ArrayList<>();
 		Dependente dependente = new Dependente();
-		dependente.setNome("Suhellen");
+		dependente.setNome("José Arimetéia");
 		dependentes.add(dependente);
 		
 		Dependente dependente2 = new Dependente();
-		dependente2.setNome("Zuleide");
+		dependente2.setNome("Chiquinho");
 		dependentes.add(dependente2);
 		
 		funcionario.setDependentes(dependentes);
 		
 		FuncionarioService fs = new FuncionarioService();
-		fs.save(2, funcionario);
+		fs.save(4, funcionario);
 		
 		
 
