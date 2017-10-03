@@ -1,0 +1,138 @@
+package br.com.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JOptionPane;
+
+import br.com.connection.ConnectionFactory;
+import br.com.model.Dependente;
+
+public class DependenteDao {
+	
+	Connection connection = null;
+	
+	public DependenteDao() {
+		
+		this.connection = ConnectionFactory.getConnection();
+	}
+	
+	public boolean create(Integer idFuncionario, Dependente dependente) {
+		
+		String SQL = "INSERT INTO dependente(id_funcionario, nome) VALUES(?, ?)";
+		PreparedStatement statement = null;
+				
+		try {
+			
+			statement = connection.prepareStatement(SQL);
+			statement.setInt(1, idFuncionario);
+			statement.setString(2, dependente.getNome());
+			statement.executeUpdate();
+			
+			JOptionPane.showMessageDialog(null, "Dependente Cadastrado com Sucesso!");
+			return true;
+			
+		} catch (SQLException e) {
+			
+			System.err.println("Erro ao Cadastrar Dependente.");
+			return false;
+			
+		}finally {
+			
+			ConnectionFactory.closeConnection(connection, statement);
+		}	
+	}
+	
+	public List<Dependente> read(){
+		
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		String SQL = "SELECT * FROM dependentes";
+		
+		List<Dependente> dependentes = new ArrayList<>();
+		
+		try {
+			
+			statement = connection.prepareStatement(SQL);
+			resultSet = statement.executeQuery();
+			
+			while(resultSet.next()) {
+					
+					Dependente dependente = new Dependente();
+					dependente.setId(resultSet.getInt("id_funcionario"));
+					dependente.setNome(resultSet.getString("descricao"));
+					dependentes.add(dependente);
+				}
+			
+		} catch (SQLException e) {
+			
+			System.err.println("Erro ao Listar Dependente" + e);
+		
+		}finally {
+			
+			ConnectionFactory.closeConnection(connection, statement, resultSet);
+		}
+		
+		return dependentes;
+	}
+	
+	public boolean update(Dependente dependente) {
+		
+		String SQL = "UPDATE dependente SET nome = ? WHERE id_funcionario = ?";
+		
+		PreparedStatement statement = null;
+		
+		try {
+			statement = connection.prepareStatement(SQL);
+			statement.setString(1, dependente.getNome());
+			statement.setLong(2, dependente.getId());
+			
+			statement.executeUpdate();
+			
+			JOptionPane.showMessageDialog(null, "Dependentes Atualizados com Sucesso!");
+			return true;	
+			
+		} catch (SQLException e) {
+			
+			System.err.println("Erro ao Atualizar Lista de Dependentes." +e);
+			return false;
+			
+		}finally {
+			
+			ConnectionFactory.closeConnection(connection, statement);
+			
+		}
+			
+	}
+	
+	public boolean delete(Dependente dependente) {
+		
+		String SQL = "DELETE FROM dependente WHERE id_funcionario = ?";
+		
+		PreparedStatement statement = null;
+		
+		try {
+			
+			statement = connection.prepareStatement(SQL);
+			statement.setLong(1, dependente.getId());
+			statement.executeUpdate();
+			
+			JOptionPane.showMessageDialog(null, "Dependentes Deletados Com Sucesso!");
+			return true;
+			
+		} catch (SQLException e) {
+			
+			System.err.println("Erro ao Deletar Dependentes.");
+			return false;
+			
+		}finally {
+			
+			ConnectionFactory.closeConnection(connection, statement);
+			
+		}	
+	}
+}
