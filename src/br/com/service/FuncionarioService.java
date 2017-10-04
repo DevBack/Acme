@@ -4,6 +4,7 @@
 package br.com.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import br.com.dao.DependenteDao;
 import br.com.dao.EmailDao;
@@ -54,12 +55,7 @@ public class FuncionarioService {
 		}		
 	}
 	
-	public void list() {
-		
-		List<Funcionario> funcionarios = new ArrayList<>();
-		Funcionario funcionario = new Funcionario();
-		
-		
-		
+	public List<Funcionario> list() {
+		return this.funcionarioDao.read();
 	}
 }
