@@ -23,7 +23,6 @@ public class TelefoneDao {
 	
 	public boolean create(Integer idFuncionario,Telefone telefone) {
 
-		connection = ConnectionFactory.getConnection();
 		PreparedStatement statement = null;
 		String SQL = "INSERT INTO telefone(id_funcionario, ddd, numero) VALUES (?,?,?)";
 
@@ -51,18 +50,19 @@ public class TelefoneDao {
 
 	}
 	
-	public List<Telefone> read(){
+	public List<Telefone> read(Integer idFuncionario){
 		
-		connection = ConnectionFactory.getConnection();
+		this.connection = ConnectionFactory.getConnection();
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
-		String SQL = "SELECT * FROM email";
+		String SQL = "SELECT * FROM telefone WHERE id_funcionario = ?";
 		
 		List<Telefone> telefones = new ArrayList<>();
 		
 		try {
 			
 			statement = connection.prepareStatement(SQL);
+			statement.setInt(1, idFuncionario);
 			resultSet = statement.executeQuery();
 			
 			while(resultSet.next()) {
@@ -76,11 +76,11 @@ public class TelefoneDao {
 			
 		} catch (SQLException e) {
 			
-			System.err.println("Erro ao Listar Telefones.");
+			System.err.println("Erro ao Listar Telefones." + e);
 			
 		}finally {
 			
-			ConnectionFactory.closeConnection(connection, statement, resultSet);
+			ConnectionFactory.closeConnection(this.connection, statement, resultSet);
 		}
 		
 		return telefones;

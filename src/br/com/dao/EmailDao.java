@@ -24,7 +24,6 @@ public class EmailDao {
 	public boolean create(Integer idFuncionario, Email email) {
 		
 		String SQL = "INSERT INTO email(id_funcionario, descricao) VALUES(?, ?)";
-		
 		PreparedStatement statement = null;
 		
 		try {
@@ -48,9 +47,10 @@ public class EmailDao {
 		}
 	}
 	
-	public List<Email> read(){
+	public List<Email> read(Integer idFuncionario){
 		
-		String SQL = "SELECT * FROM email";
+		this.connection = ConnectionFactory.getConnection();
+		String SQL = "SELECT * FROM email WHERE id_funcionario = ?";
 		
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
@@ -60,6 +60,7 @@ public class EmailDao {
 		try {
 			
 			statement = connection.prepareStatement(SQL);
+			statement.setInt(1, idFuncionario);
 			resultSet = statement.executeQuery();
 			
 			while(resultSet.next()) {
@@ -76,7 +77,7 @@ public class EmailDao {
 			
 		}finally {
 			
-			ConnectionFactory.closeConnection(connection, statement, resultSet);
+			ConnectionFactory.closeConnection(this.connection, statement, resultSet);
 		}
 		
 		return emails;

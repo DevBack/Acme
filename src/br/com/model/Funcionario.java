@@ -5,11 +5,11 @@ import java.util.List;
 
 public class Funcionario {
 
-	private long id;
+	private int id;
 	private String nome;
 	protected double salario = 0;
 	private String matricula;
-	private Email email;
+	private List<Email> emails;
 	private Departamento departamento;
 	private List<Telefone> telefones;
 	private List<Dependente> dependentes;
@@ -67,12 +67,12 @@ public class Funcionario {
 		this.matricula = matricula;
 	}
 
-	public Email getEmail() {
-		return email;
+	public List<Email> getEmails() {
+		return emails;
 	}
 
-	public void setEmail(Email email) {
-		this.email = email;
+	public void setEmails(List<Email> emails) {
+		this.emails = emails;
 	}
 
 	public List<Telefone> getTelefones() {
@@ -99,11 +99,11 @@ public class Funcionario {
 		this.dependentes = dependentes;
 	}
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

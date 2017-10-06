@@ -17,10 +17,16 @@ import br.com.model.Funcionario;
 public class FuncionarioDao {
 
 	private Connection connection = null;
+	private TelefoneDao telefoneDao;
+	private DependenteDao dependenteDao;
+	private EmailDao emailDao;
 	
 	public FuncionarioDao (){
 		
 		this.connection = ConnectionFactory.getConnection();
+		this.telefoneDao = new TelefoneDao();
+		this.dependenteDao = new DependenteDao();
+		this.emailDao = new EmailDao();
 	}
 	
 	public Integer create(Integer idDepartamento, Funcionario funcionario){
@@ -83,6 +89,11 @@ public class FuncionarioDao {
 				funcionario.setNome(resultSet.getString("nome"));
 				funcionario.setSalario(resultSet.getDouble("salario"));
 				funcionario.setMatricula(resultSet.getString("matricula"));
+				
+				funcionario.setTelefones(telefoneDao.read(funcionario.getId()));
+				funcionario.setDependentes(dependenteDao.read(funcionario.getId()));
+				funcionario.setEmails(emailDao.read(funcionario.getId()));
+				
 				funcionarios.add(funcionario);
 			}
 			

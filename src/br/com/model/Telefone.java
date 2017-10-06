@@ -3,8 +3,8 @@ package br.com.model;
 public class Telefone {
 	
 	private int id;
-	private String numero;
 	private String ddd;
+	private String numero;
 	
 	public Telefone(){
 		

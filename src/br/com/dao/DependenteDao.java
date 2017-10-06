@@ -47,24 +47,26 @@ public class DependenteDao {
 		}	
 	}
 	
-	public List<Dependente> read(){
+	public List<Dependente> read(Integer idFuncionario){
 		
+		this.connection = ConnectionFactory.getConnection();
+		String SQL = "SELECT * FROM dependente WHERE id_funcionario = ?";
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
-		String SQL = "SELECT * FROM dependentes";
 		
 		List<Dependente> dependentes = new ArrayList<>();
 		
 		try {
 			
 			statement = connection.prepareStatement(SQL);
+			statement.setInt(1, idFuncionario);
 			resultSet = statement.executeQuery();
 			
 			while(resultSet.next()) {
 					
 					Dependente dependente = new Dependente();
 					dependente.setId(resultSet.getInt("id_funcionario"));
-					dependente.setNome(resultSet.getString("descricao"));
+					dependente.setNome(resultSet.getString("nome"));
 					dependentes.add(dependente);
 				}
 			
@@ -74,7 +76,7 @@ public class DependenteDao {
 		
 		}finally {
 			
-			ConnectionFactory.closeConnection(connection, statement, resultSet);
+			ConnectionFactory.closeConnection(this.connection, statement, resultSet);
 		}
 		
 		return dependentes;
