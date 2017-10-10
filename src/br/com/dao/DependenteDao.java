@@ -82,7 +82,7 @@ public class DependenteDao {
 		return dependentes;
 	}
 	
-	public boolean update(Dependente dependente) {
+	public boolean update(int id, Dependente dependente) {
 		
 		String SQL = "UPDATE dependente SET nome = ? WHERE id_funcionario = ?";
 		
@@ -91,7 +91,7 @@ public class DependenteDao {
 		try {
 			statement = connection.prepareStatement(SQL);
 			statement.setString(1, dependente.getNome());
-			statement.setLong(2, dependente.getId());
+			statement.setLong(2, id);
 			
 			statement.executeUpdate();
 			

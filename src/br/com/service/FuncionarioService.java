@@ -63,4 +63,21 @@ public class FuncionarioService {
 		return this.funcionarioDao.read();
 	}
 	
+	public void edit(Funcionario funcionario) {
+		
+		funcionarioDao.update(funcionario);
+	
+		for(Email email : funcionario.getEmails()) {
+			emailDao.update(funcionario.getId(), email);
+		}
+		
+		for(Telefone telefone : funcionario.getTelefones()) {
+			telefoneDao.update(funcionario.getId(), telefone);
+		}
+		
+		for(Dependente dependente : funcionario.getDependentes()) {
+			dependenteDao.update(funcionario.getId(), dependente);
+		}
+				
+	}
 }

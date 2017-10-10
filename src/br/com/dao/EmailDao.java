@@ -83,7 +83,7 @@ public class EmailDao {
 		return emails;
 	}
 	
-	public boolean update(Email email) {
+	public boolean update(int id, Email email) {
 		
 		String SQL = "UPDATE email SET descricao = ? WHERE id_funcionario = ?";
 		
@@ -94,7 +94,7 @@ public class EmailDao {
 			statement = connection.prepareStatement(SQL);
 			
 			statement.setString(1, email.getDescricao());
-			statement.setInt(2, email.getId());
+			statement.setInt(2, id);
 			
 			statement.executeUpdate();
 			

@@ -86,7 +86,7 @@ public class TelefoneDao {
 		return telefones;
 	}
 	
-	public boolean update(Telefone telefone) {
+	public boolean update(int id, Telefone telefone) {
 		
 		connection = ConnectionFactory.getConnection();
 		PreparedStatement statement = null;
@@ -97,7 +97,7 @@ public class TelefoneDao {
 			statement = connection.prepareStatement(SQL);
 			statement.setString(1, telefone.getDdd());
 			statement.setString(2, telefone.getNumero());
-			statement.setInt(3, telefone.getId());
+			statement.setInt(3, id);
 
 			statement.executeUpdate();
 
