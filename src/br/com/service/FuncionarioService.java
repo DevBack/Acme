@@ -80,4 +80,21 @@ public class FuncionarioService {
 		}
 				
 	}
+	
+	public void delete(Funcionario funcionario) {
+		
+		funcionarioDao.delete(funcionario);
+		
+		for(Dependente dependente : funcionario.getDependentes()) {
+			dependenteDao.delete(funcionario.getId(), dependente);
+		}
+		
+		for(Telefone telefone : funcionario.getTelefones()) {
+			telefoneDao.delete(funcionario.getId(), telefone);
+		}
+		
+		for(Email email : funcionario.getEmails()) {
+			emailDao.delete(funcionario.getId(), email);
+		}
+	}
 }

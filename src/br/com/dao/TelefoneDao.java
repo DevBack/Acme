@@ -116,7 +116,7 @@ public class TelefoneDao {
 
 	}
 	
-	public boolean delete(Telefone telefone) {
+	public boolean delete(int id, Telefone telefone) {
 		
 		String SQL = "DELETE FROM telefone WHERE id_funcionario = ?";
 		PreparedStatement statement = null;
@@ -124,7 +124,7 @@ public class TelefoneDao {
 		try {
 			
 			statement = connection.prepareStatement(SQL);
-			statement.setInt(1, telefone.getId());
+			statement.setInt(1, id);
 			statement.executeUpdate();
 			
 			JOptionPane.showMessageDialog(null, "E-mail Deletado com Sucesso!");

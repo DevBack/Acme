@@ -112,7 +112,7 @@ public class EmailDao {
 		}
 	}
 	
-	public boolean delete(Email email) {
+	public boolean delete(int id, Email email) {
 	
 	String SQL = "DELETE FROM email WHERE id_funcionario = ?";
 	
@@ -122,7 +122,7 @@ public class EmailDao {
 		
 		statement = connection.prepareStatement(SQL);
 		
-		statement.setInt(1, email.getId());
+		statement.setInt(1, id);
 		statement.executeUpdate();
 		
 		JOptionPane.showMessageDialog(null, "Email Deletado com Sucesso!");

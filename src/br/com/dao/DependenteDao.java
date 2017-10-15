@@ -111,7 +111,7 @@ public class DependenteDao {
 			
 	}
 	
-	public boolean delete(Dependente dependente) {
+	public boolean delete(int id, Dependente dependente) {
 		
 		String SQL = "DELETE FROM dependente WHERE id_funcionario = ?";
 		
@@ -120,7 +120,7 @@ public class DependenteDao {
 		try {
 			
 			statement = connection.prepareStatement(SQL);
-			statement.setLong(1, dependente.getId());
+			statement.setLong(1, id);
 			statement.executeUpdate();
 			
 			JOptionPane.showMessageDialog(null, "Dependentes Deletados Com Sucesso!");
