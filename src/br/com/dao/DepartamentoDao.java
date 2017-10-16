@@ -15,10 +15,12 @@ import br.com.model.Departamento;
 public class DepartamentoDao {
 
 	private Connection connection = null;
+	private FuncionarioDao funcionarioDao = null;
 	
 	public DepartamentoDao() {
 		
 		this.connection = ConnectionFactory.getConnection();
+		this.funcionarioDao = new FuncionarioDao();
 	}
 	
 	public boolean create(Departamento departamento) {
@@ -47,8 +49,10 @@ public class DepartamentoDao {
 		}
 			
 	}
-
+	
 	public List<Departamento> read(){
+		
+		this.connection = ConnectionFactory.getConnection();
 		
 		String SQL = "SELECT * FROM departamento";
 		PreparedStatement statement = null;
@@ -66,20 +70,21 @@ public class DepartamentoDao {
 				Departamento departamento = new Departamento();
 				departamento.setId(resultSet.getInt("id"));
 				departamento.setNome(resultSet.getString("nome"));
-				departamentos.add(departamento);
+				departamento.setFuncionarios(funcionarioDao.search(departamento.getId()));
+				departamentos.add(departamento);	
 			}
 			
 		} catch (SQLException e) {
 			
-			System.err.println("Erro ao Listar Departamentos. " + e);
+			System.err.println("Erro ao Consultar Funcionários dos Departamentos." + e);
 			
 		}finally {
 			
-			ConnectionFactory.closeConnection(connection, statement, resultSet);
-			
+			ConnectionFactory.closeConnection(this.connection, statement, resultSet);
 		}
 		
 		return departamentos;
+		
 	}
 	
 	public boolean update(Departamento departamento) {

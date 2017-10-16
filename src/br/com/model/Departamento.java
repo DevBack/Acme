@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Departamento {
 	
-	private long id;
+	private int id;
 	private String nome;
 	private List<Funcionario> funcionarios;
 	
@@ -24,11 +24,11 @@ public class Departamento {
 		funcionarios.remove(funcionario);
 	}
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -40,11 +40,11 @@ public class Departamento {
 		this.nome = nome;
 	}
 
-	List<Funcionario> getFuncionarios() {
+	public List<Funcionario> getFuncionarios() {
 		return funcionarios;
 	}
 
-	void setFuncionarios(List<Funcionario> funcionarios) {
+	public void setFuncionarios(List<Funcionario> funcionarios) {
 		this.funcionarios = funcionarios;
 	}
 	

@@ -71,6 +71,8 @@ public class FuncionarioDao {
 	
 	public List<Funcionario> read(){
 		
+		this.connection = ConnectionFactory.getConnection();
+		
 		String SQL = "SELECT * FROM funcionario";
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
@@ -103,7 +105,51 @@ public class FuncionarioDao {
 			
 		}finally {
 			
-			ConnectionFactory.closeConnection(connection, statement, resultSet);
+			ConnectionFactory.closeConnection(this.connection, statement, resultSet);
+			
+		}
+		
+		return funcionarios;
+	}
+	
+	public List<Funcionario> search(Integer idDepartamento){
+		
+		this.connection = ConnectionFactory.getConnection();
+		
+		String SQL = "SELECT * FROM funcionario WHERE id_departamento = ?";
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		
+		List<Funcionario> funcionarios = new ArrayList<>();
+		
+		try {
+			
+			statement = connection.prepareStatement(SQL);
+			statement.setInt(1, idDepartamento);
+			resultSet = statement.executeQuery();
+			
+			while(resultSet.next()) {
+				
+				Funcionario funcionario = new Funcionario();
+				funcionario.setId(resultSet.getInt("id"));
+				funcionario.setNome(resultSet.getString("nome"));
+				funcionario.setSalario(resultSet.getDouble("salario"));
+				funcionario.setMatricula(resultSet.getString("matricula"));
+				
+				funcionario.setTelefones(telefoneDao.read(funcionario.getId()));
+				funcionario.setDependentes(dependenteDao.read(funcionario.getId()));
+				funcionario.setEmails(emailDao.read(funcionario.getId()));
+				
+				funcionarios.add(funcionario);
+			}
+			
+		} catch (SQLException e) {
+			
+			System.err.println("Erro ao Consultar  Funcionarios Cadastrados! " + e);
+			
+		}finally {
+			
+			ConnectionFactory.closeConnection(this.connection, statement, resultSet);
 			
 		}
 		

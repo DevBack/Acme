@@ -43,7 +43,7 @@ public class EmailDao {
 			
 		}finally {
 			
-			ConnectionFactory.closeConnection(connection, statement);
+			ConnectionFactory.closeConnection(this.connection, statement);
 		}
 	}
 	
