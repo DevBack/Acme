@@ -9,6 +9,7 @@ package br.com.model;
  */
 public class Endereco {
 
+	
 	public Endereco() {
 		
 	}
