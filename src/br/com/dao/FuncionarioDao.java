@@ -187,7 +187,7 @@ public class FuncionarioDao {
 	
 	public boolean delete(Funcionario funcionario) {
 		
-		String SQL = "DELETE FROM funcionario WHERE id = ?";
+		String SQL = "DELETE * FROM funcionario WHERE id = ?";
 		PreparedStatement statement = null;
 		
 		try {
