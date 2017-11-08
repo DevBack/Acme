@@ -55,13 +55,9 @@ create table fornecedor(
 	id int not null primary key auto_increment,
     cnpj varchar(20) not null unique,
     id_endereco int not null,
-    id_telefone int not null,
-    id_email int not null,
     nome varchar(200) not null,
     razao_social varchar(200) not null,
-    foreign key (id_endereco) references endereco(id),
-    foreign key (id_telefone) references telefone(id),
-    foreign key (id_email) references email(id)
+    foreign key (id_endereco) references endereco(id)
 );
 
 create table cliente(

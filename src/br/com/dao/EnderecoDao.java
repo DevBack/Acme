@@ -28,15 +28,19 @@ public class EnderecoDao {
 		connection = ConnectionFactory.getConnection();
 	}
 	
-	public boolean create(Endereco endereco) {
+	public Integer create(Endereco endereco) {
 		
 		connection = ConnectionFactory.getConnection();
+		
 		String SQL = "INSERT INTO endereco(rua, numero, complemento, referencia, cep, bairro, cidade, estado, pais) VALUES(?,?,?,?,?,?,?,?,?,)";
+		
 		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		Integer generatedId = null;
 		
 		try {
 			
-			statement = connection.prepareStatement(SQL);
+			statement = connection.prepareStatement(SQL, statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, endereco.getRua());
 			statement.setInt(2, endereco.getNumero());
 			statement.setString(3, endereco.getComplemento());
@@ -49,19 +53,27 @@ public class EnderecoDao {
 			
 			statement.executeUpdate();
 			
+			resultSet = statement.getGeneratedKeys();
+			
+			if(resultSet.next()) {
+				generatedId = resultSet.getInt(1);
+				endereco.setId(generatedId);
+			}
+			
 			JOptionPane.showMessageDialog(null, "Endereço Salvo Com Sucesso!");
-			return true;
 			
 		} catch (SQLException e) {
 			
 			System.err.println("Erro ao Salvar Endereço. " + e);
-			return false;
 			
 		}finally {
 			
 			ConnectionFactory.closeConnection(this.connection, statement);
 			
 		}	
+		
+		return generatedId;
+		
 	}
 	
 	public List<Endereco> read(){

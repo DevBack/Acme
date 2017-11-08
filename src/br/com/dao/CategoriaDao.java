@@ -95,5 +95,60 @@ public class CategoriaDao {
 		return categorias;
 	}
 	
+	public boolean update(Categoria categoria) {
+		
+		this.connection = ConnectionFactory.getConnection();
+		
+		String SQL = " UPDATE categoria SET descricao = ? WHERE id = ?";
+		PreparedStatement statement = null;
+		
+		try {
+			
+			statement = connection.prepareStatement(SQL);
+			statement.setInt(2, categoria.getId());
+			statement.setString(1, categoria.getDescricao());
+			statement.executeUpdate();
+			
+			JOptionPane.showMessageDialog(null, "Categoria Atualizada Com Sucesso!");
+			return true;
+			
+		} catch (SQLException e) {
+			
+			System.err.println("Erro ao Atualizar Categoria. " + e);
+			return false;
+			
+		}finally {
+			
+			ConnectionFactory.closeConnection(this.connection, statement);
+			
+		}
+	}
 	
+	public boolean delete(Categoria categoria) {
+		
+		this.connection = ConnectionFactory.getConnection();
+		
+		String SQL = " DELETE * FROM categoria WHERE id = ?";
+		PreparedStatement statement = null;
+		
+		try {
+			
+			statement = connection.prepareStatement(SQL);
+			statement.setInt(1, categoria.getId());
+			statement.executeUpdate();
+			
+			JOptionPane.showMessageDialog(null, "Categoria Excluída com Sucesso!");
+			return true;
+			
+		} catch (SQLException e) {
+			
+			System.err.println("Erro ao Excluir Categoria. " + e);
+			return false;
+			
+		}finally {
+			
+			ConnectionFactory.closeConnection(this.connection, statement);
+			
+		}
+	}
 }
