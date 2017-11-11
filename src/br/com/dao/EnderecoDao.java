@@ -7,10 +7,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.JOptionPane;
+
+import com.mysql.jdbc.Statement;
 
 import br.com.connection.ConnectionFactory;
 import br.com.model.Endereco;
@@ -40,7 +39,7 @@ public class EnderecoDao {
 		
 		try {
 			
-			statement = connection.prepareStatement(SQL, statement.RETURN_GENERATED_KEYS);
+			statement = connection.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, endereco.getRua());
 			statement.setInt(2, endereco.getNumero());
 			statement.setString(3, endereco.getComplemento());
