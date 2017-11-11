@@ -111,7 +111,7 @@ public class FornecedorDao {
 		}finally {
 			
 			ConnectionFactory.closeConnection(this.connection, statement, resultSet);
-			
+
 		}
 		
 		return fornecedores;	
