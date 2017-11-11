@@ -15,37 +15,15 @@ public class Fornecedor {
 	private int id;
 	private String cnpj;
 	private Endereco endereco;
-	private List<Telefone> telefones;
-	private List<Email> emails;
+	private String telefone;
+	private String email;
 	private List<Produto> produtos;
 	private String nome;
 	private String razaoSocial;
 	
 	public Fornecedor() {
 		
-		this.telefones = new ArrayList<Telefone>();
-		this.emails = new ArrayList<Email>();
 		this.produtos = new ArrayList<Produto>();
-	}
-	
-	public void addTelefone(Telefone telefone) {
-		this.telefones.add(telefone);
-		
-	}
-	
-	public void deleteTelefone( Telefone telefone) {
-		this.telefones.remove(telefone);
-		
-	}
-	
-	public void addEmail(Email email) {
-		this.emails.add(email);
-		
-	}
-	
-	public void deleteEmail(Email email) {
-		this.emails.remove(email);
-		
 	}
 	
 	public void addProduto(Produto produto) {
@@ -82,20 +60,20 @@ public class Fornecedor {
 		this.endereco = endereco;
 	}
 
-	public List<Telefone> getTelefones() {
-		return telefones;
+	public String getTelefone() {
+		return telefone;
 	}
 
-	public void setTelefones(List<Telefone> telefones) {
-		this.telefones = telefones;
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
 	}
 
-	public List<Email> getEmails() {
-		return emails;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setEmails(List<Email> emails) {
-		this.emails = emails;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public List<Produto> getProdutos() {

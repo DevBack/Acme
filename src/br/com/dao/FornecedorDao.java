@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -22,11 +24,12 @@ import br.com.model.Fornecedor;
 public class FornecedorDao {
 
 	Connection connection = null;
+	EnderecoDao enderecoDao = null;
 	
 	public FornecedorDao() {
 		
 		this.connection = ConnectionFactory.getConnection();
-
+		this.enderecoDao = new EnderecoDao();
 	}
 	
 	public Integer create(Fornecedor fornecedor, Integer idEndereco) {
@@ -70,6 +73,48 @@ public class FornecedorDao {
 		
 		return generatedId;
 		
+	}
+	
+	public List<Fornecedor> read(){
+		
+		this.connection = ConnectionFactory.getConnection();
+		
+		String SQL = "SELECT * FROM fornecedor";
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		
+		List<Fornecedor> fornecedores = new ArrayList<>();
+		
+		try {
+			
+			statement = connection.prepareStatement(SQL);
+			resultSet = statement.executeQuery();
+			
+			while(resultSet.next()) {
+				
+				Fornecedor fornecedor = new Fornecedor();
+				fornecedor.setId(resultSet.getInt("id"));
+				fornecedor.setCnpj(resultSet.getString("cnpj"));
+				fornecedor.setEndereco(enderecoDao.read(fornecedor.getId()));
+				fornecedor.setTelefone(resultSet.getString("telefone"));
+				fornecedor.setEmail(resultSet.getString("email"));
+				fornecedor.setNome(resultSet.getString("nome"));
+				fornecedor.setRazaoSocial(resultSet.getString("razao_social"));
+				
+				fornecedores.add(fornecedor);
+			}
+			
+		} catch (SQLException e) {
+			
+			System.err.println("Erro ao lêr Fornecedores. " + e);
+			
+		}finally {
+			
+			ConnectionFactory.closeConnection(this.connection, statement, resultSet);
+			
+		}
+		
+		return fornecedores;	
 	}
 	
 	

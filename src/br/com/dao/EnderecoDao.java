@@ -76,24 +76,23 @@ public class EnderecoDao {
 		
 	}
 	
-	public List<Endereco> read(){
+	public Endereco read(Integer externalKey){
 		
 		connection = ConnectionFactory.getConnection();
 		
-		String SQL = "SELECT * FROM endereco";
+		String SQL = "SELECT * FROM endereco WHERE id = ?";
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		
-		List<Endereco> enderecos = new ArrayList<>();
+		Endereco endereco = new Endereco();
 		
 		try {
 			
 			statement = connection.prepareStatement(SQL);
+			statement.setInt(1, externalKey);
 			resultSet = statement.executeQuery();
 			
 			while(resultSet.next()) {
-				
-				Endereco endereco = new Endereco();
 				
 				endereco.setId(resultSet.getInt("id"));
 				endereco.setRua(resultSet.getString("rua"));
@@ -106,7 +105,6 @@ public class EnderecoDao {
 				endereco.setEstado(resultSet.getString("estado"));
 				endereco.setPais(resultSet.getString("pais"));
 				
-				enderecos.add(endereco);
 			}
 			
 		} catch (SQLException e) {
@@ -119,7 +117,7 @@ public class EnderecoDao {
 			
 		}
 		
-		return enderecos;
+		return endereco;
 	}
 	
 	public boolean update(Endereco endereco){

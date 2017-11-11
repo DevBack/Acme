@@ -55,6 +55,8 @@ create table fornecedor(
 	id int not null primary key auto_increment,
     cnpj varchar(20) not null unique,
     id_endereco int not null,
+    telefone varchar(200) not null,
+    email varchar(200) null,
     nome varchar(200) not null,
     razao_social varchar(200) not null,
     foreign key (id_endereco) references endereco(id)
