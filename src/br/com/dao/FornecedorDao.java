@@ -23,8 +23,8 @@ import br.com.model.Fornecedor;
  */
 public class FornecedorDao {
 
-	Connection connection = null;
-	EnderecoDao enderecoDao = null;
+	private Connection connection = null;
+	private EnderecoDao enderecoDao = null;
 	
 	public FornecedorDao() {
 		
@@ -117,5 +117,63 @@ public class FornecedorDao {
 		return fornecedores;	
 	}
 	
+	public boolean update(Fornecedor fornecedor, Integer idEndereco) {
+		
+			this.connection = ConnectionFactory.getConnection();
+			
+			String SQL = "UPDATE fornecedor SET cnpj = ?, id_endereco = ?, nome = ?, razao_social = ? WHERE id = ?";
+			PreparedStatement statement = null;
+			
+			try {
+				
+				statement = connection.prepareStatement(SQL);
+				statement.setString(1, fornecedor.getCnpj());
+				statement.setInt(2, idEndereco);
+				statement.setString(3, fornecedor.getNome());
+				statement.setString(4, fornecedor.getRazaoSocial());
+				statement.setInt(5, fornecedor.getId());
+				
+				statement.executeUpdate();
+				
+				JOptionPane.showMessageDialog(null, "Fornecedor Atualizado com Sucesso!");
+				return true;
+				
+			} catch (SQLException e) {
+				
+				System.err.println("Erro ao Atualizar Fornecedor. " + e);
+				return false;
+				
+			}finally {
+				
+				ConnectionFactory.closeConnection(this.connection, statement);		
+		}
+	}
 	
+	public boolean delete(Fornecedor fornecedor) {
+		
+		this.connection = ConnectionFactory.getConnection();
+		
+		String SQL = "Delete * FROM fornecedor WHERE id = ?";
+		PreparedStatement statement = null;
+		
+		try {
+			
+			statement = connection.prepareStatement(SQL);
+			statement.setInt(1, fornecedor.getId());
+			statement.executeUpdate();
+			
+			JOptionPane.showMessageDialog(null, "Fornecedor Excluído com Sucesso!");
+			return true;
+			
+		} catch (SQLException e) {
+			
+			System.err.println("Erro ao Excluir Fornecedor. " + e);
+			return false;
+			
+		}finally {
+			
+			ConnectionFactory.closeConnection(this.connection, statement);
+			
+		}
+	}
 }
