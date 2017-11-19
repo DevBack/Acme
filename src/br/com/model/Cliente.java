@@ -3,9 +3,6 @@
  */
 package br.com.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author Elton Lima
  *
@@ -16,25 +13,13 @@ public class Cliente {
 	private String nome;
 	private String cpf;
 	private Endereco endereco;
-	private List<Telefone> telefones;
-	private Email email;
+	private String telefone;
+	private String email;
 	
 	public Cliente() {
 		
-		this.telefones = new ArrayList<>();
-		
 	}
 	
-	public void addTelefone(Telefone telefone) {
-		this.telefones.add(telefone);
-		
-	}
-	
-	public void deleteTelefone(Telefone telefone) {
-		this.telefones.remove(telefone);
-		
-	}
-
 	public int getId() {
 		return id;
 	}
@@ -67,19 +52,19 @@ public class Cliente {
 		this.endereco = endereco;
 	}
 
-	public List<Telefone> getTelefones() {
-		return telefones;
+	public String getTelefone() {
+		return telefone;
 	}
 
-	public void setTelefones(List<Telefone> telefones) {
-		this.telefones = telefones;
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
 	}
 
-	public Email getEmail() {
+	public String getEmail() {
 		return email;
 	}
 
-	public void setEmail(Email email) {
+	public void setEmail(String email) {
 		this.email = email;
 	}
 	
