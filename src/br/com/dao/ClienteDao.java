@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 
 import br.com.connection.ConnectionFactory;
 import br.com.model.Cliente;
+import br.com.model.Endereco;
 
 /**
  * @author Elton Lima
@@ -22,8 +23,8 @@ import br.com.model.Cliente;
  */
 public class ClienteDao {
 
-	Connection connection = null;
-	EnderecoDao enderecoDao = null;
+	private Connection connection = null;
+	private EnderecoDao enderecoDao = null;
 	
 	public ClienteDao() {
 		
@@ -31,7 +32,7 @@ public class ClienteDao {
 		this.enderecoDao = new EnderecoDao();
 	}
 	
-	public Integer create(Cliente cliente, Integer idEndereco) {
+	public Integer create(Cliente cliente, Endereco endereco) {
 		
 		this.connection = ConnectionFactory.getConnection();
 		String SQL = "INSERT INTO cliente (nome, cpf, id_endereco, telefone, email) VALUES (?, ?, ?, ?, ?)";
@@ -45,7 +46,7 @@ public class ClienteDao {
 			statement = connection.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, cliente.getNome());
 			statement.setString(2, cliente.getCpf());
-			statement.setInt(3, idEndereco);
+			statement.setInt(3, endereco.getId());
 			statement.setString(4, cliente.getTelefone());
 			statement.setString(5, cliente.getEmail());
 			
@@ -114,7 +115,7 @@ public class ClienteDao {
 		return clientes;
 	}
 	
-	public boolean update(Cliente cliente, Integer idEndereco) {
+	public boolean update(Cliente cliente, Endereco endereco) {
 		
 		this.connection = ConnectionFactory.getConnection();
 		
@@ -126,7 +127,7 @@ public class ClienteDao {
 			statement = connection.prepareStatement(SQL);
 			statement.setString(1, cliente.getNome());
 			statement.setString(2, cliente.getCpf());
-			statement.setInt(3, idEndereco);
+			statement.setInt(3, endereco.getId());
 			statement.setString(4, cliente.getTelefone());
 			statement.setString(5, cliente.getEmail());
 			

@@ -1,4 +1,3 @@
-
 package br.com.service;
 
 import java.util.List;
@@ -7,6 +6,7 @@ import br.com.dao.DependenteDao;
 import br.com.dao.EmailDao;
 import br.com.dao.FuncionarioDao;
 import br.com.dao.TelefoneDao;
+import br.com.model.Departamento;
 import br.com.model.Dependente;
 import br.com.model.Email;
 import br.com.model.Funcionario;
@@ -32,24 +32,18 @@ public class FuncionarioService {
 
 	}
 	
-	public void save(Integer dpt, Funcionario funcionario) {
-	
-		Integer departamento = dpt;
+	public void save(Departamento departamento, Funcionario funcionario) {
 		
-	//INSERT de Funcionário
-		Integer key = funcionarioDao.create(departamento, funcionario);
-	
-	//INSERT de E-mail do Funcionário
+		Integer key = funcionarioDao.create(departamento.getId(), funcionario);
+
 		for(Email email : funcionario.getEmails()) {
 			emailDao.create(key, email);
 		}
-		
-	//INSERT da Lista de Telefones do Funcionário	
+			
 		for(Telefone telefone : funcionario.getTelefones()) {
 			telefoneDao.create(key, telefone);
 		}
 		
-	//INSERT da Lista de Dependentes do Funcionário	
 		for(Dependente dependente : funcionario.getDependentes()) {
 			dependenteDao.create(key, dependente);
 		}

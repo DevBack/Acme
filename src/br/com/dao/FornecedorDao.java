@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import com.mysql.jdbc.Statement;
 
 import br.com.connection.ConnectionFactory;
+import br.com.model.Endereco;
 import br.com.model.Fornecedor;
 
 /**
@@ -32,7 +33,7 @@ public class FornecedorDao {
 		this.enderecoDao = new EnderecoDao();
 	}
 	
-	public Integer create(Fornecedor fornecedor, Integer idEndereco) {
+	public Integer create(Fornecedor fornecedor, Endereco endereco) {
 		
 		this.connection = ConnectionFactory.getConnection();
 		
@@ -46,7 +47,7 @@ public class FornecedorDao {
 			
 			statement = connection.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, fornecedor.getCnpj());
-			statement.setInt(2, idEndereco);
+			statement.setInt(2, endereco.getId());
 			statement.setString(3, fornecedor.getNome());
 			statement.setString(4, fornecedor.getRazaoSocial());
 			
@@ -158,7 +159,7 @@ public class FornecedorDao {
 		return fornecedor;	
 	}
 	
-	public boolean update(Fornecedor fornecedor, Integer idEndereco) {
+	public boolean update(Fornecedor fornecedor, Endereco endereco) {
 		
 			this.connection = ConnectionFactory.getConnection();
 			
@@ -169,7 +170,7 @@ public class FornecedorDao {
 				
 				statement = connection.prepareStatement(SQL);
 				statement.setString(1, fornecedor.getCnpj());
-				statement.setInt(2, idEndereco);
+				statement.setInt(2, endereco.getId());
 				statement.setString(3, fornecedor.getNome());
 				statement.setString(4, fornecedor.getRazaoSocial());
 				statement.setInt(5, fornecedor.getId());
