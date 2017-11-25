@@ -85,7 +85,7 @@ create table produto(
     id_fornecedor int not null,
     dataValidade varchar(11),
     preco double not null,
-    qtd int not null,
+    quantidade int not null,
     foreign key (id_categoria) references categoria(id),
     foreign key (id_fornecedor) references fornecedor(id)
 );

@@ -117,6 +117,47 @@ public class FornecedorDao {
 		return fornecedores;	
 	}
 	
+	public Fornecedor search(Integer produtoId){
+		
+		this.connection = ConnectionFactory.getConnection();
+		
+		String SQL = "SELECT * FROM fornecedor WHERE id = ?";
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		
+		Fornecedor fornecedor = new Fornecedor();
+		
+		try {
+			
+			statement = connection.prepareStatement(SQL);
+			statement.setInt(1, produtoId);
+			resultSet = statement.executeQuery();
+			
+			while(resultSet.next()) {
+				
+				fornecedor.setId(resultSet.getInt("id"));
+				fornecedor.setCnpj(resultSet.getString("cnpj"));
+				fornecedor.setEndereco(enderecoDao.read(fornecedor.getId()));
+				fornecedor.setTelefone(resultSet.getString("telefone"));
+				fornecedor.setEmail(resultSet.getString("email"));
+				fornecedor.setNome(resultSet.getString("nome"));
+				fornecedor.setRazaoSocial(resultSet.getString("razao_social"));
+				
+			}
+			
+		} catch (SQLException e) {
+			
+			System.err.println("Erro ao Buscar Fornecedor. " + e);
+			
+		}finally {
+			
+			ConnectionFactory.closeConnection(this.connection, statement, resultSet);
+
+		}
+		
+		return fornecedor;	
+	}
+	
 	public boolean update(Fornecedor fornecedor, Integer idEndereco) {
 		
 			this.connection = ConnectionFactory.getConnection();

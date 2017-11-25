@@ -6,11 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JOptionPane;
-
 import com.mysql.jdbc.Statement;
-
 import br.com.connection.ConnectionFactory;
 import br.com.model.Funcionario;
 
@@ -58,7 +55,7 @@ public class FuncionarioDao {
 			
 		} catch (SQLException e) {
 			
-			JOptionPane.showMessageDialog(null, "Erro ao Cadastrar Funcionário! " + e);
+			System.err.println("Erro ao Cadastrar Funcionário! " + e);
 			
 		}finally {
 			

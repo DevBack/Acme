@@ -95,6 +95,40 @@ public class CategoriaDao {
 		return categorias;
 	}
 	
+public Categoria search(Integer produtoId) {
+		
+		this.connection = ConnectionFactory.getConnection();
+		
+		String SQL = "SELECT * FROM categoria WHERE id = ?";
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		
+		Categoria categoria = new Categoria();
+		
+		try {
+			
+			statement = connection.prepareStatement(SQL);
+			statement.setInt(1, produtoId);
+			resultSet = statement.executeQuery();
+			
+			while(resultSet.next()) {
+				
+				categoria.setId(resultSet.getInt("id"));
+				categoria.setDescricao(resultSet.getString("descricao"));
+			}
+			
+		} catch (SQLException e) {
+		
+			System.err.println("Erro ao Consultar Categoria. " + e);
+			
+		}finally {
+			
+			ConnectionFactory.closeConnection(this.connection, statement, resultSet);	
+		}
+		
+		return categoria;
+    }
+	
 	public boolean update(Categoria categoria) {
 		
 		this.connection = ConnectionFactory.getConnection();

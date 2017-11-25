@@ -13,7 +13,10 @@ public class Produto {
 	private String nome;
 	private String descricao;
 	private Categoria categoria;
+	private Fornecedor fornecedor;
 	private String dataValidade;
+	private double preco;
+	private int quantidade;
 	
 	public Produto() {
 		
@@ -51,12 +54,36 @@ public class Produto {
 		this.categoria = categoria;
 	}
 
+	public Fornecedor getFornecedor() {
+		return fornecedor;
+	}
+
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
+	}
+	
 	public String getDataValidade() {
 		return dataValidade;
 	}
 
 	public void setDataValidade(String dataValidade) {
 		this.dataValidade = dataValidade;
+	}
+
+	public double getPreco() {
+		return preco;
+	}
+
+	public void setPreco(double preco) {
+		this.preco = preco;
+	}
+
+	public int getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
 	}
 	
 }
